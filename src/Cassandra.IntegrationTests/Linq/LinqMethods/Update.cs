@@ -55,9 +55,9 @@ namespace Cassandra.IntegrationTests.Linq.LinqMethods
             table.CreateIfNotExists();
             Movie movieToUpdate = _movieList[1];
 
-            var expectedMovie = new Movie(movieToUpdate.Title, movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker, 1212);
+            var expectedMovie = new Movie(movieToUpdate.Title, movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker, 1212, MovieRating.C);
             table.Where(m => m.Title == movieToUpdate.Title && m.MovieMaker == movieToUpdate.MovieMaker && m.Director == movieToUpdate.Director)
-                 .Select(m => new Movie { Year = expectedMovie.Year, MainActor = expectedMovie.MainActor })
+                 .Select(m => new Movie { Year = expectedMovie.Year, MainActor = expectedMovie.MainActor, Rating = expectedMovie.Rating })
                  .Update()
                  .Execute();
 
@@ -78,9 +78,9 @@ namespace Cassandra.IntegrationTests.Linq.LinqMethods
             table.CreateIfNotExists();
             Movie movieToUpdate = _movieList[1];
 
-            var expectedMovie = new Movie(movieToUpdate.Title, movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker, 1212);
+            var expectedMovie = new Movie(movieToUpdate.Title, movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker, 1212, MovieRating.A);
             table.Where(m => m.Title == movieToUpdate.Title && m.MovieMaker == movieToUpdate.MovieMaker && m.Director == movieToUpdate.Director)
-                 .Select(m => new Movie { Year = expectedMovie.Year, MainActor = expectedMovie.MainActor })
+                 .Select(m => new Movie { Year = expectedMovie.Year, MainActor = expectedMovie.MainActor, Rating = expectedMovie.Rating })
                  .Update()
                  .Execute();
 
@@ -104,15 +104,15 @@ namespace Cassandra.IntegrationTests.Linq.LinqMethods
 
             BatchStatement batch = new BatchStatement();
 
-            var expectedMovie1 = new Movie(movieToUpdate1.Title, movieToUpdate1.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate1.MovieMaker, 1212);
+            var expectedMovie1 = new Movie(movieToUpdate1.Title, movieToUpdate1.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate1.MovieMaker, 1212, MovieRating.B);
             var update1 = table.Where(m => m.Title == movieToUpdate1.Title && m.MovieMaker == movieToUpdate1.MovieMaker && m.Director == movieToUpdate1.Director)
-                 .Select(m => new Movie { Year = expectedMovie1.Year, MainActor = expectedMovie1.MainActor })
+                 .Select(m => new Movie { Year = expectedMovie1.Year, MainActor = expectedMovie1.MainActor, Rating = expectedMovie1.Rating })
                  .Update();
             batch.Add(update1);
 
-            var expectedMovie2 = new Movie(movieToUpdate2.Title, movieToUpdate2.Director, "also_something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate2.MovieMaker, 1212);
+            var expectedMovie2 = new Movie(movieToUpdate2.Title, movieToUpdate2.Director, "also_something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate2.MovieMaker, 1212, MovieRating.C);
             var update2 = table.Where(m => m.Title == movieToUpdate2.Title && m.MovieMaker == movieToUpdate2.MovieMaker && m.Director == movieToUpdate2.Director)
-                 .Select(m => new Movie { Year = expectedMovie2.Year, MainActor = expectedMovie2.MainActor })
+                 .Select(m => new Movie { Year = expectedMovie2.Year, MainActor = expectedMovie2.MainActor, Rating = expectedMovie2.Rating })
                  .Update();
             batch.Add(update2);
 

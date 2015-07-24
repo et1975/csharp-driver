@@ -75,7 +75,7 @@ namespace Cassandra.IntegrationTests.Mapping.Tests
             Movie movieToUpdate = _movieList[1];
 
             // Update to different values
-            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, movieToUpdate.MainActor + "_something_different", movieToUpdate.MovieMaker, 1212);
+            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, movieToUpdate.MainActor + "_something_different", movieToUpdate.MovieMaker, 1212, MovieRating.C);
             _mapper.Update(expectedMovie);
 
             List<Movie> actualMovieList = _movieTable.Execute().ToList();
@@ -98,7 +98,7 @@ namespace Cassandra.IntegrationTests.Mapping.Tests
             Movie movieToUpdate = _movieList[1];
 
             // Update to different values
-            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker + "_something_different", 1212);
+            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), movieToUpdate.MovieMaker + "_something_different", 1212, MovieRating.C);
             _mapper.Update(expectedMovie);
 
             List<Movie> actualMovieList = _movieTable.Execute().ToList();
@@ -143,7 +143,7 @@ namespace Cassandra.IntegrationTests.Mapping.Tests
             Movie movieToUpdate = _movieList[1];
 
             // Update to different values
-            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), null, 1212);
+            var expectedMovie = new Movie(movieToUpdate.Title + "_something_different", movieToUpdate.Director, "something_different_" + Randomm.RandomAlphaNum(10), null, 1212, MovieRating.C);
             var err = Assert.Throws<InvalidQueryException>(() => _mapper.Update(expectedMovie));
             Assert.AreEqual("Invalid null value for partition key part moviemaker", err.Message);
         }
